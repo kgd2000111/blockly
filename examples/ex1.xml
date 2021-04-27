@@ -1,0 +1,48 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_if" id="?XI[0a~I.LZjMH9hmQ57" inline="false" x="20" y="20">
+    <mutation else="1"/>
+    <value name="IF0">
+      <block type="logic_compare" id="n]W^j54^[|hlO:Z@jP3^">
+        <field name="OP">EQ</field>
+        <value name="A">
+          <block type="math_arithmetic" id="L,l2A!Dj]IwF5?Sn*#/F">
+            <field name="OP">MULTIPLY</field>
+            <value name="A">
+              <block type="math_number" id="!`Jru(#17J|O_PS-8L^m">
+                <field name="NUM">6</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="}}@_L5flr32^`zP]UhH7">
+                <field name="NUM">7</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="B">
+          <block type="math_number" id="GKqzmz*GltOeE:l#MU(o">
+            <field name="NUM">42</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <statement name="DO0">
+      <block type="text_print" id="ts0$t7prNt%{Ep!L=_E$" inline="false">
+        <value name="TEXT">
+          <block type="text" id="t){sf=Mlfk,}6)h9+/_@">
+            <field name="TEXT">Don't panic</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="ELSE">
+      <block type="text_print" id="vAe#)k7I~jg+CHb)$vZt" inline="false">
+        <value name="TEXT">
+          <block type="text" id="+Mz,uu_d7)}dhHZA%sKf">
+            <field name="TEXT">Panic</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
