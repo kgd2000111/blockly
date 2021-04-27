@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>《计算思维与信息技术》</title>
+    <script src="library/acorn_interpreter.js"></script>
+    <script src="library/blockly_compressed.js"></script>
+    <script src="library/blocks_compressed.js"></script>
+    <script src="library/javascript_compressed.js"></script>
+    <script src="msg/js/zh-hans.js"></script>
+    <script src="library/wait_block.js"></script>
+    <script src="library/FileSaver.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="header">
+        <table id="header-table">
+            <tr>
+                <td style="width: 50%; text-align: left;">
+                    <img id="header-img" src="media/niit-name-logo.jpg" width="50%">
+                </td>
+                <td style="width: 50%; text-align: right;">
+                    <p id="header-word">计算思维Blockly编程环境</p>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <section id="parent">
+        <article id="left-side">
+            <p id="left-title"> Google Blockly</p>
+            <div id="blocklyDiv" style="width: 100%;"></div>
+            <xml id="toolbox" style="display: none">
+                <category name="分支" colour="10">
+                    <block type="controls_if"></block>
+                    <block type="controls_ifelse"></block>
+                    <block type="controls_if_if"></block>
+                    <block type="controls_if_elseif"></block>
+                    <block type="controls_if_else"></block>
+                </category>
+                <category name="逻辑" colour="50">
+                    <block type="logic_compare"></block>
+                    <block type="logic_operation"></block>
+                    <block type="logic_negate"></block>
+                    <block type="logic_boolean"></block>
+                    <block type="logic_null"></block>
+                    <block type="logic_ternary"></block>
+                </category>
+                <category name="循环" colour="90">
+                    <block type="controls_repeat"></block>
+                    <block type="controls_repeat_ext"></block>
+                    <block type="controls_whileUntil"></block>
+                    <block type="controls_for"></block>
+                    <block type="controls_forEach"></block>
+                    <block type="controls_flow_statements"></block>
+                </category>
+                <category name="数学" colour="130">
+                    <block type="math_number"></block>
+                    <block type="math_arithmetic"></block>
+                    <block type="math_single"></block>
+                    <block type="math_trig"></block>
+                    <block type="math_constant"></block>
+                    <block type="math_number_property"></block>
+                    <block type="math_round"></block>
+                    <block type="math_on_list"></block>
+                    <block type="math_modulo"></block>
+                    <block type="math_constrain"></block>
+                    <block type="math_random_int"></block>
+                    <block type="math_random_float"></block>
+                    <block type="math_atan2"></block>
+                </category>
+                <category name="文本" colour="170">
+                    <block type="text"></block>
+                    <block type="text_join"></block>
+                    <block type="text_append"></block>
+                    <block type="text_length"></block>
+                    <block type="text_isEmpty"></block>
+                    <block type="text_indexOf"></block>
+                    <block type="text_charAt"></block>
+                    <block type="text_getSubstring"></block>
+                    <block type="text_changeCase"></block>
+                    <block type="text_trim"></block>
+                    <block type="text_print"></block>
+                    <block type="text_prompt_ext"></block>
+                </category>
+                <category name="列表" colour="210">
+                    <block type="lists_create_with"></block>
+                    <block type="lists_repeat"></block>
+                    <block type="lists_length"></block>
+                    <block type="lists_isEmpty"></block>
+                    <block type="lists_indexOf"></block>
+                    <block type="lists_getIndex"></block>
+                    <block type="lists_setIndex"></block>
+                    <block type="lists_getSublist"></block>
+                    <block type="lists_split"></block>
+                    <block type="lists_sort"></block>
+                </category>
+                <category name="颜色" colour="250">
+                    <block type="colour_picker"></block>
+                    <block type="colour_random"></block>
+                    <block type="colour_rgb">
+                        <value name="RED">
+                            <shadow type="math_number">
+                                <field name="NUM">100</field>
+                            </shadow>
+                        </value>
+                        <value name="GREEN">
+                            <shadow type="math_number">
+                                <field name="NUM">50</field>
+                            </shadow>
+                        </value>
+                        <value name="BLUE">
+                            <shadow type="math_number">
+                                <field name="NUM">0</field>
+                            </shadow>
+                        </value>
+                    </block>
+                    <block type="colour_blend">
+                        <value name="COLOUR1">
+                            <shadow type="colour_picker">
+                                <field name="COLOUR">#ff0000</field>
+                            </shadow>
+                        </value>
+                        <value name="COLOUR2">
+                            <shadow type="colour_picker">
+                                <field name="COLOUR">#3333ff</field>
+                            </shadow>
+                        </value>
+                        <value name="RATIO">
+                            <shadow type="math_number">
+                                <field name="NUM">0.5</field>
+                            </shadow>
+                        </value>
+                    </block>
+                </category>
+                <!-- <sep></sep> -->
+                <category name="变量" colour="290">
+                    <block type="variables_get"></block>
+                    <block type="variables_set"></block>
+                </category>
+                <category name="函数" colour="330" custom="PROCEDURE">
+
+                </category>
+            </xml>
+
+            <xml id="startBlocks" style="display: none"></xml>
+
+        </article>
+
+        <article id="right-side">
+            <section id="child-1">
+                <p id="right-up-title">自动生成的JavaScript代码</p>
+                <textarea id="code-gene" style="display: inline-block; width: 100%; height: 100%;"></textarea>
+            </section>
+
+            <section id="child-button">
+
+                <table style="margin: auto; width: 100%;">
+                    <tr style="height: 100%;">
+                        <td class="image-run"  style="text-align: center; width: 30%;">
+                            <input id="runButton" type="image" src="media/play.png" width="50" height="50"
+                                onclick="runCode()">
+                        </td>
+                        <td class="image-load" style="text-align: center; width: 30%">
+
+                            <label for="loadButton">
+                                <img src="media/load.png" width="60"/>
+                            </label>
+
+                            <input id="loadButton" type="file" onclick="loadWorkspace()">
+                        </td>
+                        <td class="image-save" style="text-align: center; width: 30%">
+                            <input id="saveButton" type="image" src="media/save.png" width="50" height="50"
+                                onclick="saveWorkspace()">
+
+                        </td>
+                    </tr>
+                </table>
+
+            </section>
+
+            <section id="child-2">
+                <p id="right-down-title">JavaScript代码运行输出</p>
+                <textarea id="code-run-output" style="display: inline-block; width: 100%; height: 100%;"></textarea>
+            </section>
+        </article>
+    </section>
+
+    <script>
+        var demoWorkspace = Blockly.inject('blocklyDiv',
+            {
+                toolbox: document.getElementById('toolbox'),
+                collapse: true,
+                comments: true,
+                disable: false,
+                maxBlocks: Infinity,
+                trashcan: true,
+                horizontalLayout: false,
+                toolboxPosition: 'start',
+                css: true,
+                media: 'media/',
+                rtl: false,
+                scrollbars: true,
+                sounds: true,
+                oneBasedIndex: true,
+                zoom: {
+                    controls: true,
+                    wheel: true,
+                    startScale: 1,
+                    maxScale: 3,
+                    minScale: 0.3,
+                    scaleSpeed: 1.2
+                }
+            }
+        );
+
+        Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+            demoWorkspace);
+
+        var outputArea = document.getElementById('code-run-output');
+        var runButton = document.getElementById('runButton');
+        var myInterpreter = null;
+        var runner;
+        // API initial, copy from google site
+        function initApi(interpreter, scope) {
+            var wrapper = function (text) {
+                text = text ? text.toString() : '';
+                outputArea.value = outputArea.value + '\n' + text;
+            };
+            interpreter.setProperty(scope, 'alert',
+                interpreter.createNativeFunction(wrapper));
+            var wrapper = function (text) {
+                text = text ? text.toString() : '';
+                return interpreter.createPrimitive(prompt(text));
+            };
+            interpreter.setProperty(scope, 'prompt',
+                interpreter.createNativeFunction(wrapper));
+
+            initInterpreterWaitForSeconds(interpreter, scope);
+
+            var wrapper = function (id) {
+                id = id ? id.toString() : '';
+                return interpreter.createPrimitive(highlightBlock(id));
+            };
+            interpreter.setProperty(scope, 'highlightBlock',
+                interpreter.createNativeFunction(wrapper));
+        }
+        var highlightPause = false;
+        var latestCode = '';
+
+        function highlightBlock(id) {
+            demoWorkspace.highlightBlock(id);
+            highlightPause = true;
+        }
+        function resetStepUi(clearOutput) {
+            demoWorkspace.highlightBlock(null);
+            highlightPause = false;
+            runButton.disabled = '';
+        }
+        function generateCodeAndLoadIntoInterpreter() {
+            // Generate JavaScript code and parse it.
+            Blockly.JavaScript.addReservedWords('highlightBlock');
+            latestCode = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+
+            resetStepUi(true);
+        }
+
+        function resetInterpreter() {
+            myInterpreter = null;
+            if (runner) {
+                clearTimeout(runner);
+                runner = null;
+            }
+        }
+        function runCode() {
+            if (!myInterpreter) {
+                resetStepUi(true);
+                runButton.disabled = 'disabled';
+
+                setTimeout(function () {
+                    // Begin execution
+                    highlightPause = false;
+                    myInterpreter = new Interpreter(latestCode, initApi);
+                    runner = function () {
+                        if (myInterpreter) {
+                            var hasMore = myInterpreter.run();
+                            if (hasMore) {
+                                // Execution is currently blocked by some async call.
+                                // Try again later.
+                                setTimeout(runner, 10);
+                            } else {
+                                // Program is complete.
+                                outputArea.value += '\n\n<< Program complete >>';
+                                resetInterpreter();
+                                resetStepUi(false);
+                            }
+                        }
+                    };
+                    runner();
+                }, 1);
+                return;
+            }
+        }
+        function resetInterpreter() {
+            myInterpreter = null;
+            if (runner) {
+                clearTimeout(runner);
+                runner = null;
+            }
+        }
+
+        // Load the interpreter now, and upon future changes.
+        generateCodeAndLoadIntoInterpreter();
+        demoWorkspace.addChangeListener(function (event) {
+            if (!(event instanceof Blockly.Events.Ui)) {
+                // Something changed. Parser needs to be reloaded.
+                resetInterpreter();
+                generateCodeAndLoadIntoInterpreter();
+            }
+        });
+
+
+        var blocklyDiv = document.getElementById('blocklyDiv');
+        var left_side = document.getElementById('left-side');
+
+
+        var onresize = function (e) {
+            // Compute the absolute coordinates and dimensions of left-side.
+            var element = left_side;
+            var x = 0;
+            var y = 0;
+            do {
+                x += element.offsetLeft;
+                y += element.offsetTop;
+                element = element.offsetParent;
+            } while (element);
+            // Position blocklyDiv over left-side.
+            blocklyDiv.style.left = x + 'px';
+            blocklyDiv.style.top = y + 'px';
+            blocklyDiv.style.width = left_side.offsetWidth + 'px';
+            blocklyDiv.style.height = left_side.offsetHeight + 'px';
+            Blockly.svgResize(demoWorkspace);
+        };
+        window.addEventListener('resize', onresize, false);
+        onresize();
+        Blockly.svgResize(demoWorkspace);
+
+
+        function myUpdateFunction(event) {
+            var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+
+            document.getElementById('code-gene').value = code;
+        }
+
+        demoWorkspace.addChangeListener(myUpdateFunction);
+
+        // 加载和到处函数
+        function saveWorkspace() {
+            var xmlDom = Blockly.Xml.workspaceToDom(demoWorkspace);
+            var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
+            var blob = new Blob([xmlText]);
+            window.saveAs(blob, "blockly.xml")
+        }
+
+        function readFile(file) {
+            var reader = new FileReader(),
+                rawlog = 'empty';
+            reader.readAsText(file);
+
+            reader.onload = function (e) {
+                rawlog = reader.result;
+                console.log(rawlog)
+                demoWorkspace.clear();
+                xmlDom = Blockly.Xml.textToDom(rawlog);
+                Blockly.Xml.domToWorkspace(demoWorkspace, xmlDom);
+            };
+            return rawlog;
+        }
+
+        function loadWorkspace() {
+            document.getElementById("loadButton").addEventListener("change", function () {
+                var file = this.files[0];
+                if (file) {
+                    outputArea.value = '';
+                    var temp = readFile(file);
+                }
+            }, false);
+        }
+    </script>
+</body>
+
+</html>
